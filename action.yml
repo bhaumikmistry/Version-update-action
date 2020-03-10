@@ -1,13 +1,13 @@
 name: "Python Container Action Template"
-description: "Get started with Python Container actions"
-author: "Jacob Tomlinson"
+description: "Get started with VersionS actions"
+author: "Bhaumik Mistry"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
-outputs:
-  myOutput:
-    description: "Output from the action"
+  versionFileName:
+    description: "version file name to use"
+    default: "version.md"
+  versionNumberEncapsulateText:
+    description: "Version number is saved between, for e.g \"0.0.0\""
+    default: "\""
 runs:
   using: "docker"
   image: "Dockerfile"
