@@ -1,5 +1,5 @@
-name: "Python Container Action Template"
-description: "Get started with VersionS actions"
+name: "Version In File Updater"
+description: "Version actions"
 author: "Bhaumik Mistry"
 inputs:
   versionFileName:
@@ -11,3 +11,6 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+branding:
+  icon: 'award'  
+  color: 'green'
