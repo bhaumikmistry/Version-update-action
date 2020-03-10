@@ -19,7 +19,7 @@ Describe how to use your action here.
 ### Example workflow
 
 ```yaml
-name: My Workflow
+name: My Workflowgi
 on: [push, pull_request]
 jobs:
   build:
@@ -34,6 +34,15 @@ jobs:
       # Put an example of your mandatory inputs here
       with:
         myInput: world
+      name: Update version.js
+      run: |
+        cat docs/js/version.js
+        git config --global user.name github-actions
+        git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git add docs/js/version.js
+        git commit -am "updating version in version.js" ||  true
+        git push --force origin HEAD:$GITHUB_REF || true
 ```
 
 ### Inputs
