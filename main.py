@@ -53,5 +53,5 @@ def ReadAndUpdateVersionFile():
 
 if __name__ == "__main__":
     main()
-    ReadAndUpdateVersionFile(version_file_path)
+    ReadAndUpdateVersionFile()
 
