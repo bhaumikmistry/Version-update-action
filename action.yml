@@ -14,3 +14,16 @@ runs:
 branding:
   icon: 'award'  
   color: 'green'
+
+    - name: Update version.js
+        run: echo this is not fun.
+        shell: bash
+
+          run: |
+          cat version.js
+          git config --global user.name github-actions
+          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git add version.js
+          git commit -am "updating version in version.js" ||  true
+          git push --force origin HEAD:$GITHUB_REF || true    
