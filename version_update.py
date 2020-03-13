@@ -3,8 +3,8 @@ import os
 class VersionUpdate():
 
     def __init__(self):
-        #os.environ["INPUT_VERSIONFILENAME"] = str("version.js")
-        #os.environ["INPUT_VERSIONNUMBERENCAPSULATETEXT"] = str("*")
+        # os.environ["INPUT_VERSIONFILENAME"] = str("version.js")
+        # os.environ["INPUT_VERSIONNUMBERENCAPSULATETEXT"] = str("*")
         self.version_file_name = os.environ.get("INPUT_VERSIONFILENAME",str(""))
         self.version_number_encapsulate_text = os.environ.get("INPUT_VERSIONNUMBERENCAPSULATETEXT",str(""))
 
@@ -17,7 +17,7 @@ class VersionUpdate():
             else:
                 return [True,"Text for version encapsulate text provided > "+self.version_number_encapsulate_text + " Version file name provided > "+self.version_file_name]
         
-    def validate_file(self) -> bool:
+    def validate_file(self) -> [bool,str]:
         if not os.path.isfile(self.version_file_name):
             return [False,"Error: Version File Does Not exists!!"] 
         with open(self.version_file_name) as f:
@@ -36,8 +36,8 @@ class VersionUpdate():
                     line = line[:-1] if line.endswith("\n") else line
                     print(f'line: {line}')
                 if found_version:
-                    return found_version
-            return found_version
+                    return [found_version,"Version Text Found"]
+            return [found_version,"Version Text not found"]
     
     def update_version_in_file(self):
         with open(self.version_file_name, "r") as read_file:
@@ -57,8 +57,24 @@ class VersionUpdate():
 
         #Assuming the version is split with '.'
         version_sep = '.'
+
+        # check if what we found between encapsulate text is a version number
+        if version_text.count(version_sep)==0:
+            print("ERROR:Could not read version between the encapsulated text")
+            print("line: {version_text}")
+            return False
+
         version_number = version_text.split(version_sep)
         print(f'version_number={version_number}')
+
+        # Check if the version is all numbers
+        for item in version_number:
+            if item.isdigit():
+                continue
+            else:
+                print('ERROR: version is not numeric')
+                print(f"line: {version_number}")
+                return False
 
         # Later if implemented
         bool_bump = False

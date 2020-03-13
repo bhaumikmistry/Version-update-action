@@ -1,3 +1,2 @@
-var version = *0.2.25*
-var bump = "1"
+var version = *0.2.27*
 console.log("Version " + version)
