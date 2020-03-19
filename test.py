@@ -8,6 +8,11 @@ class TestMain(unittest.TestCase):
         os.environ["INPUT_VERSIONFILENAME"] = str(file_name)
         os.environ["INPUT_VERSIONNUMBERENCAPSULATETEXT"] = str(encapsulate_text)
 
+    def test_set_up_env(self):
+        self.set_up_env("version.js","*")
+        self.assertEqual(os.environ["INPUT_VERSIONFILENAME"],"version.js")
+        self.assertEqual(os.environ["INPUT_VERSIONNUMBERENCAPSULATETEXT"],"*")
+
     def test_env_variable_set(self):
         file_name = "version.js"
         encapsulate_text = "*"
@@ -97,11 +102,6 @@ class TestMain(unittest.TestCase):
         res = v.validate_file()
         self.assertFalse(res[0],msg=res[1])
         os.remove(file_name)
-
-    def test_version_filename_2(self):
-        self.set_up_env("version.js","*")
-        self.assertEqual(os.environ["INPUT_VERSIONFILENAME"],"version.js")
-        self.assertEqual(os.environ["INPUT_VERSIONNUMBERENCAPSULATETEXT"],"*")
 
 
 if __name__ == "__main__":

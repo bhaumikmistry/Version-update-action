@@ -30,13 +30,13 @@ class VersionUpdate():
                         line = line[:-1] if line.endswith("\n") else line
                         # print("Line must have \'version=\' text.")
                         # print(f"line: {line}")   
-                        return [found_version,"Line must have \'version\' text"]
+                        # return [found_version,"Line must have \'version\' text"]
                 elif line.count(self.version_number_encapsulate_text) > 2 or \
                     line.count(self.version_number_encapsulate_text) != 0:
                     # print(f'Odd encapsulate text found!!')
                     line = line[:-1] if line.endswith("\n") else line
                     # print(f'line: {line}')
-                    return [found_version,"Line must have \'version=\' text"]
+                    #return [found_version,"Line must have \'version=\' text"]
                 if found_version:
                     return [found_version,"Version Text Found"]
             return [found_version,"Version Text not found"]
