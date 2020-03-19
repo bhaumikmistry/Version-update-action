@@ -1,6 +1,7 @@
 import unittest
 import os
 from version_update import VersionUpdate
+import random
 
 class TestMain(unittest.TestCase):
 
@@ -102,6 +103,28 @@ class TestMain(unittest.TestCase):
         res = v.validate_file()
         self.assertFalse(res[0],msg=res[1])
         os.remove(file_name)
+
+    def test_version_update_call(self):
+        file_name = "version_final_test.js"
+        encapsulate_test = "*"
+        self.set_up_env(file_name,encapsulate_test)
+        version_file_lines = []
+
+        x = random.randint(0,10000000)
+        y = random.randint(0,10000000)
+        z = random.randint(0,10000000)
+        version = f"version = *{x}.{y}.{z}*\n"
+        print(f"{x}:{y}:{z}:{version}")
+        version_file_lines.append(version)
+        version_file_lines.append("Why did it take so long for the composer to be unambivalently embraced? Maybe because ambivalence is what he’s embraced most of all. ")
+        with open(file_name, 'w') as file:
+            file.writelines(version_file_lines)
+        v = VersionUpdate()
+        self.assertTrue(v.check_arguments()[0])
+        res = v.validate_file()
+        self.assertTrue(res[0],msg=res[1])
+        os.remove(file_name)
+
 
 
 if __name__ == "__main__":
